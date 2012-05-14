@@ -94,7 +94,7 @@ public class SimpleQueueServiceReceveTest {
             while (totalNumOfMessagesReceived < TOTAL_MESSAGES_NUM) {
                 Thread.sleep(POLLING_INTERVAL);
                 List<Message> messages = sqs.receiveMessage(receiveMessageRequest).getMessages();
-                List<DeleteMessageBatchRequestEntry>  entries=new ArrayList<DeleteMessageBatchRequestEntry>()
+                List<DeleteMessageBatchRequestEntry>  entries=new ArrayList<DeleteMessageBatchRequestEntry>();
                 for (Message message : messages) {
             /*        System.out.println("  Message");
                     System.out.println("    MessageId:     " + message.getMessageId());
@@ -106,7 +106,7 @@ public class SimpleQueueServiceReceveTest {
                         System.out.println("    Name:  " + entry.getKey());
                         System.out.println("    Value: " + entry.getValue());
                     }*/
-                	DeleteMessageBatchRequestEntry entry;
+                	DeleteMessageBatchRequestEntry entry= new DeleteMessageBatchRequestEntry().withId(message.getMessageId()).withReceiptHandle(message.getReceiptHandle());
 					entries.add(entry);
                     totalNumOfMessagesReceived++;                    		
                 }
